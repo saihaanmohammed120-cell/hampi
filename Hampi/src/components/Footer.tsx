@@ -1,4 +1,7 @@
 import { ArrowRight } from "lucide-react";
+import { Text } from '@astryxdesign/core/Text';
+import { Heading } from '@astryxdesign/core/Heading';
+import { Button } from '@astryxdesign/core/Button';
 
 export function Footer() {
   return (
@@ -18,28 +21,27 @@ export function Footer() {
 
       <div className="container mx-auto px-8 pt-32 pb-16 flex flex-col items-center justify-center relative z-10 text-center">
         
-        <div className="text-sandstone tracking-[0.4em] text-xs font-semibold mb-8">
-          LEGACY
+        <div className="mb-8">
+          <Text type="label" color="accent">LEGACY</Text>
         </div>
         
-        <h2 className="font-serif text-5xl md:text-7xl text-slate-100 mb-12 max-w-3xl leading-tight">
+        <Heading level={2} type="display-2" className="mb-12 max-w-3xl">
           THE STONES ARE <br className="hidden md:block"/>
           <span className="text-sandstone italic">STILL SPEAKING.</span>
-        </h2>
+        </Heading>
         
-        <button className="group flex items-center gap-4 bg-transparent border border-sandstone/30 text-sandstone px-10 py-5 font-semibold tracking-widest text-sm hover:bg-sandstone hover:text-obsidian transition-all duration-500 mb-32">
-          ENTER HAMPI
-          <ArrowRight size={18} className="transform group-hover:translate-x-2 transition-transform duration-300" />
-        </button>
+        <div className="mb-32">
+          <Button label="ENTER HAMPI" variant="secondary" icon={<ArrowRight size={18} />} />
+        </div>
 
         <div className="w-full flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-8 mt-16 text-[0.65rem] tracking-[0.3em] text-slate-500">
           <div className="flex gap-8 mb-6 md:mb-0">
-            <span className="hover:text-sandstone transition-colors cursor-pointer">TIME-WEAVE</span>
-            <span className="hover:text-sandstone transition-colors cursor-pointer">CULTURAL RENAISSANCE</span>
+            <Text type="label">TIME-WEAVE</Text>
+            <Text type="label">CULTURAL RENAISSANCE</Text>
           </div>
           <div className="flex gap-8">
-            <span>HAMPI, INDIA</span>
-            <span>© 2026</span>
+            <Text type="label">HAMPI, INDIA</Text>
+            <Text type="label">© 2026</Text>
           </div>
         </div>
         

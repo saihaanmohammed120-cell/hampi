@@ -3,6 +3,8 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Spline from "@splinetool/react-spline";
+import { Text } from '@astryxdesign/core/Text';
+import { Button } from '@astryxdesign/core/Button';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,9 +63,9 @@ export function Hero() {
         
         {/* Left Content */}
         <div className="w-full md:w-[45%] flex flex-col items-start justify-center mt-16 md:mt-0 relative z-20">
-          <p className="hero-metadata text-sandstone tracking-[0.3em] text-xs font-semibold mb-6">
-            TIME-WEAVE / VIJAYANAGARA / 1500 CE
-          </p>
+          <div className="hero-metadata mb-6">
+            <Text type="label" color="accent">TIME-WEAVE / VIJAYANAGARA / 1500 CE</Text>
+          </div>
           
           <h1 className="font-serif text-[clamp(3.5rem,8vw,8rem)] leading-[0.9] text-slate-100 mb-6 drop-shadow-2xl mix-blend-lighten relative flex flex-col tracking-tight">
             {renderSplitChars("STONE", "hero-stone")}
@@ -72,18 +74,17 @@ export function Hero() {
             </span>
           </h1>
           
-          <p className="hero-copy text-slate-400 text-lg md:text-xl font-light max-w-md mb-12 leading-relaxed">
-            Walk through the ruins of an empire whose architecture still speaks.
-          </p>
+          <div className="hero-copy mb-12 max-w-md">
+            <Text type="large" as="p">Walk through the ruins of an empire whose architecture still speaks.</Text>
+          </div>
           
           <div className="flex flex-col sm:flex-row items-center gap-6">
-            <button className="hero-cta flex items-center gap-3 bg-saffron text-obsidian px-8 py-4 font-semibold tracking-widest text-sm hover:bg-white transition-colors duration-300">
-              ENTER THE TIMELINE
-              <ArrowRight size={18} />
-            </button>
-            <button className="hero-cta flex items-center gap-3 border-b border-sandstone/40 text-sandstone px-2 py-2 font-medium tracking-widest text-sm hover:border-sandstone transition-colors duration-300">
-              EXPLORE ARCHITECTURE
-            </button>
+            <div className="hero-cta">
+              <Button label="ENTER THE TIMELINE" variant="primary" icon={<ArrowRight size={18} />} />
+            </div>
+            <div className="hero-cta">
+              <Button label="EXPLORE ARCHITECTURE" variant="ghost" />
+            </div>
           </div>
         </div>
 

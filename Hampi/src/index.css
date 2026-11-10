@@ -1,4 +1,13 @@
-@import "tailwindcss";
+@layer reset, theme, base, astryx-base, astryx-theme, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-chocolate/theme.css';
+@import '@astryxdesign/core/tailwind-theme.css';
+@import '@astryxdesign/theme-chocolate/fonts.css';
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 @theme {
   --color-obsidian: #0b0f19;
@@ -86,5 +95,16 @@
   .card-hover-effect:hover {
     transform: translate3d(0, -8px, 0) scale(1.02);
     box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5), 0 0 40px rgba(194,163,130,0.05);
+  }
+}
+
+/* Narrow screens: the Astryx Grid drops to one explicit 280px track, and a
+   span-2 tile then forces a ~22px implicit track that swallows tiles 03/07
+   (they render as slivers at the right edge). Below 648px viewport width
+   two 280px tracks no longer fit, so force the two wide tiles to one column
+   and every tile goes full width. */
+@media (max-width: 647px) {
+  .bento-wide {
+    grid-column: span 1 !important;
   }
 }
