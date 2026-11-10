@@ -2,6 +2,9 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Text } from '@astryxdesign/core/Text';
+import { Heading } from '@astryxdesign/core/Heading';
+import { Grid } from '@astryxdesign/core/Grid';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,35 +40,37 @@ export function WhyTimeWeave() {
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
           <div className="md:w-1/2">
-            <h2 className="text-saffron text-xs tracking-[0.4em] mb-6 font-medium">WHY TIME-WEAVE</h2>
-            <h3 className="font-serif text-3xl md:text-5xl text-slate-100 leading-tight tracking-tight">
+            <div className="mb-6">
+              <Text type="label" color="accent">WHY TIME-WEAVE</Text>
+            </div>
+            <Heading level={3}>
               HISTORY WAS NEVER MEANT <br /> TO BE READ IN A LIST.
-            </h3>
+            </Heading>
           </div>
           <div className="md:w-1/3">
-            <p className="text-slate-400 font-light text-lg leading-relaxed">
+            <Text type="large">
               TIME-WEAVE turns Hampi into a spatial narrative, where every scroll reveals another layer of architecture, culture and memory.
-            </p>
+            </Text>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 pt-12 border-t border-white/5">
-          
-          <div className="why-column flex flex-col gap-4">
-            <div className="text-sandstone text-sm tracking-[0.3em]">01 — SEE</div>
-            <p className="text-slate-300 font-serif text-2xl">Architecture becomes the interface.</p>
-          </div>
+        <div className="pt-12 border-t border-white/5">
+          <Grid columns={{ minWidth: 280, max: 3 }} gap={8}>
+            <div className="why-column flex flex-col gap-4">
+              <Text type="label" color="accent">01 — SEE</Text>
+              <Heading level={3}>Architecture becomes the interface.</Heading>
+            </div>
 
-          <div className="why-column flex flex-col gap-4">
-            <div className="text-sandstone text-sm tracking-[0.3em]">02 — TRAVEL</div>
-            <p className="text-slate-300 font-serif text-2xl">Scroll becomes the timeline.</p>
-          </div>
+            <div className="why-column flex flex-col gap-4">
+              <Text type="label" color="accent">02 — TRAVEL</Text>
+              <Heading level={3}>Scroll becomes the timeline.</Heading>
+            </div>
 
-          <div className="why-column flex flex-col gap-4">
-            <div className="text-sandstone text-sm tracking-[0.3em]">03 — REMEMBER</div>
-            <p className="text-slate-300 font-serif text-2xl">The ruins become the story.</p>
-          </div>
-
+            <div className="why-column flex flex-col gap-4">
+              <Text type="label" color="accent">03 — REMEMBER</Text>
+              <Heading level={3}>The ruins become the story.</Heading>
+            </div>
+          </Grid>
         </div>
         
       </div>

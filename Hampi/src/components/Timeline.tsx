@@ -1,13 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Text } from '@astryxdesign/core/Text';
+import { Heading } from '@astryxdesign/core/Heading';
+import { ProgressBar } from '@astryxdesign/core/ProgressBar';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Timeline() {
   const containerRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
 
   useGSAP(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,11 +29,9 @@ export function Timeline() {
           // Update the progress indicator based on scroll percentage
           const progress = self.progress;
           const chapters = document.querySelectorAll('.nav-chapter');
-          const progressBar = document.querySelector('.timeline-progress-bar') as HTMLElement;
-          
-          if (progressBar) {
-            progressBar.style.width = `${progress * 100}%`;
-          }
+
+          // Lift GSAP progress into React state for the Astryx ProgressBar
+          setProgress(progress * 100);
 
           chapters.forEach((chapter, index) => {
             if (progress >= index * 0.33 && progress < (index + 1) * 0.33) {
@@ -85,20 +87,22 @@ export function Timeline() {
 
           <div className="container mx-auto px-8 relative z-20 w-full h-full flex flex-col justify-center">
             
-            <h2 className="absolute top-24 left-8 font-serif text-3xl md:text-5xl text-slate-100 tracking-tight z-30 opacity-20 pointer-events-none">
+            <Heading level={2} className="absolute top-24 left-8 z-30 opacity-20 pointer-events-none">
               AN EMPIRE BUILT <br className="md:hidden" />
               <span className="text-sandstone italic">IN STONE.</span>
-            </h2>
+            </Heading>
 
             {/* Chapter 01: ARRIVAL */}
             <div className="absolute inset-x-8 top-1/2 -translate-y-1/2" id="chapter-01">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="fg-text w-full md:w-1/2" style={{ willChange: "transform, opacity" }}>
-                  <div className="text-saffron text-sm tracking-[0.4em] mb-4">01 ARRIVAL</div>
-                  <h3 className="font-serif text-5xl md:text-6xl text-slate-200 mb-6 drop-shadow-lg">The Founding <br/> Vision</h3>
-                  <p className="text-slate-400 font-light max-w-md leading-relaxed text-lg">
-                    Emerging from the rocky terrain of the Deccan Plateau, a city was born that would rival the greatest capitals of the ancient world.
-                  </p>
+                  <div className="mb-4"><Text type="label" color="accent">01 ARRIVAL</Text></div>
+                  <Heading level={3} className="mb-6 drop-shadow-lg">The Founding <br/> Vision</Heading>
+                  <div className="max-w-md">
+                    <Text type="body">
+                      Emerging from the rocky terrain of the Deccan Plateau, a city was born that would rival the greatest capitals of the ancient world.
+                    </Text>
+                  </div>
                 </div>
                 <div className="mg-visual w-full md:w-1/2 h-64 md:h-[28rem] border border-slate-800/50 bg-slate-900/20 glassmorphism flex items-center justify-center relative overflow-hidden group" style={{ willChange: "transform, opacity" }}>
                    <div className="absolute inset-0 bg-gradient-to-tr from-obsidian via-transparent to-sandstone/10"></div>
@@ -127,11 +131,13 @@ export function Timeline() {
             <div className="absolute inset-x-8 top-1/2 -translate-y-1/2 opacity-0" id="chapter-02">
               <div className="flex flex-col md:flex-row-reverse gap-12 items-center">
                 <div className="fg-text w-full md:w-1/2 md:pl-12" style={{ willChange: "transform, opacity" }}>
-                  <div className="text-saffron text-sm tracking-[0.4em] mb-4">02 FLOURISH</div>
-                  <h3 className="font-serif text-5xl md:text-6xl text-slate-200 mb-6 drop-shadow-lg">The Golden <br/> Era</h3>
-                  <p className="text-slate-400 font-light max-w-md leading-relaxed text-lg">
-                    Trade routes converging, markets overflowing with diamonds, and architecture reaching unprecedented heights of complexity and devotion.
-                  </p>
+                  <div className="mb-4"><Text type="label" color="accent">02 FLOURISH</Text></div>
+                  <Heading level={3} className="mb-6 drop-shadow-lg">The Golden <br/> Era</Heading>
+                  <div className="max-w-md">
+                    <Text type="body">
+                      Trade routes converging, markets overflowing with diamonds, and architecture reaching unprecedented heights of complexity and devotion.
+                    </Text>
+                  </div>
                 </div>
                 <div className="mg-visual w-full md:w-1/2 h-64 md:h-[28rem] border border-slate-800/50 bg-[#060910] glassmorphism flex items-center justify-center relative overflow-hidden" style={{ willChange: "transform, opacity" }}>
                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(244,196,48,0.05)_0%,transparent_60%)]"></div>
@@ -156,11 +162,13 @@ export function Timeline() {
             <div className="absolute inset-x-8 top-1/2 -translate-y-1/2 opacity-0" id="chapter-03">
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="fg-text w-full md:w-1/2" style={{ willChange: "transform, opacity" }}>
-                  <div className="text-sandstone text-sm tracking-[0.4em] mb-4">03 MEMORY</div>
-                  <h3 className="font-serif text-5xl md:text-7xl text-slate-100 mb-6 drop-shadow-lg">Echoes in <br/> Granite</h3>
-                  <p className="text-slate-400 font-light max-w-md leading-relaxed text-xl">
-                    Though the empire fell, the stones remained. A testament to human endeavor, standing silent yet speaking volumes across centuries.
-                  </p>
+                  <div className="mb-4"><Text type="label" color="accent">03 MEMORY</Text></div>
+                  <Heading level={3} className="mb-6 drop-shadow-lg">Echoes in <br/> Granite</Heading>
+                  <div className="max-w-md">
+                    <Text type="body">
+                      Though the empire fell, the stones remained. A testament to human endeavor, standing silent yet speaking volumes across centuries.
+                    </Text>
+                  </div>
                 </div>
                 <div className="mg-visual w-full md:w-1/2 h-64 md:h-[28rem] border border-slate-800/50 bg-[#04060a] glassmorphism flex items-center justify-center relative overflow-hidden" style={{ willChange: "transform, opacity" }}>
                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian to-transparent z-10"></div>
@@ -186,11 +194,10 @@ export function Timeline() {
 
           {/* TIME-WEAVE Progress Indicator (Pinned to bottom of screen during scroll) */}
           <div className="absolute bottom-8 left-8 right-8 flex flex-col z-30">
-            <div className="w-full h-[1px] bg-white/5 mb-4 relative">
-              {/* Progress Line */}
-              <div className="absolute left-0 top-0 h-full bg-sandstone/30 w-1/3 transition-all duration-300 timeline-progress-bar"></div>
+            <div className="w-full mb-4">
+              <ProgressBar label="Timeline progress" value={progress} max={100} variant="accent" isLabelHidden hasValueLabel={false} />
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-[0.6rem] tracking-[0.3em] text-sandstone/70">TIME-WEAVE</p>
               <div className="flex items-center gap-4 text-[0.6rem] tracking-[0.3em] font-medium uppercase">
                 <span className="nav-chapter text-slate-200 transition-colors duration-300">Arrival</span>
