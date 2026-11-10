@@ -74,11 +74,15 @@ export function Timeline() {
     <section ref={containerRef} id="story" className="relative w-full bg-obsidian border-t border-slate-900/50">
       
       {/* 
-        ScrollTrigger Pinning Structure: 
-        We create a tall container (300vh) to allow scrolling.
-        The inner container uses position: sticky (or is pinned by GSAP) to stay in the viewport.
+        ScrollTrigger Pinning Structure:
+        The GSAP pin creates its own spacer (pin height + scroll distance)
+        which IS the scroll room — so this wrapper must not set its own
+        fixed height. It used to be h-[300vh], which double-counted the
+        scroll room: the spacer (3600px) overflowed the wrapper (2700px)
+        by 900px, extending the page 238px past the footer and leaving
+        the pinned Timeline content visible below the footer.
       */}
-      <div className="relative h-[300vh] w-full">
+      <div className="relative w-full">
         
         <div ref={pinRef} className="h-screen w-full overflow-hidden flex items-center relative">
           
