@@ -108,3 +108,69 @@
     grid-column: span 1 !important;
   }
 }
+
+/* Timeline nav bar: six chapter jumps must all stay reachable on a phone,
+   so they wrap into a 3-column grid instead of hiding the inactive names.
+   Arrows are desktop only. */
+@media (max-width: 639px) {
+  #story .nav-chapters {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+    width: 100%;
+    gap: 2px 10px;
+  }
+  #story .nav-chapters .nav-arrow {
+    display: none;
+  }
+}
+
+/* Reduced motion: the hero glow pulse is the only CSS animation on the
+   page (the GSAP timelines already check prefers-reduced-motion). Under
+   reduced motion the glow holds still instead of pulsing.
+   The pinned timeline is different: its GSAP timeline never runs, so
+   chapters 2-6 keep their opacity-0 and are never seen. Under reduced
+   motion the pin becomes a plain stacked list: every chapter visible in
+   normal flow, the watermark, background layer and progress bar hidden,
+   and the chapter jump bar shown as a static list at the end. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  #story .timeline-pin {
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding: 4rem 0 2rem;
+  }
+  #story .timeline-pin .container {
+    height: auto;
+  }
+  #story .timeline-pin [id^="chapter-"] {
+    position: static !important;
+    transform: none !important;
+    translate: none !important;
+    opacity: 1 !important;
+    padding: 2.5rem 0;
+  }
+  #story .timeline-watermark,
+  #story .bg-layer,
+  #story .timeline-progress-bar {
+    display: none;
+  }
+  #story .timeline-progress {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+
+/* Round 5: 44px tap targets. Astryx Button tops out at 36px (size lg:
+   8px padding + ~20px text), and its StyleX rules set min-height 0, so a
+   plain min-height would lose to the runtime-injected styles. The
+   !important here only ever grows the buttons, it never shrinks them, and
+   it only matches the four Astryx buttons on this page (nav ENTER, the two
+   hero CTAs, footer BACK TO THE TOP). If it ever looks wrong, delete this
+   block and the buttons fall back to 36px. */
+.astryx-button {
+  min-height: 44px !important;
+}
