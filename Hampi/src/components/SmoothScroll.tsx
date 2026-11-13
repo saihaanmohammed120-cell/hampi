@@ -33,18 +33,20 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    // Sync GSAP ticker with Lenis requestAnimationFrame
-    gsap.ticker.add((time) => {
+    // Sync GSAP ticker with Lenis requestAnimationFrame. Keep the callback
+    // in a variable so the cleanup removes the same function it added:
+    // passing a fresh arrow to remove() never matched the added one, so
+    // the raf callback leaked on unmount.
+    const raf = (time: number) => {
       lenis.raf(time * 1000);
-    });
-    
+    };
+    gsap.ticker.add(raf);
+
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(raf);
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
     };
   }, []);
 
